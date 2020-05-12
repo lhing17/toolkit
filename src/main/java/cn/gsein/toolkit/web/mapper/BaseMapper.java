@@ -1,4 +1,4 @@
-package cn.gsein.toolkit.web;
+package cn.gsein.toolkit.web.mapper;
 
 import org.springframework.stereotype.Component;
 
