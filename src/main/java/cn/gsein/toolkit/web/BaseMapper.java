@@ -1,4 +1,4 @@
-package com.jweb.db.mapper;
+package cn.gsein.toolkit.web;
 
 import org.springframework.stereotype.Component;
 
@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * mybatis的基础Mapper类，基本的CRUD
- * 
+ *
  * @author G.Seinfeld
  * @date 2017/11/9
  */
@@ -15,7 +15,7 @@ import java.util.Map;
 public interface BaseMapper<T> {
     /**
      * 插入一条数据
-     * 
+     *
      * @param t 要插入的数据
      * @return 插入成功返回1，否则返回0
      */
@@ -23,7 +23,7 @@ public interface BaseMapper<T> {
 
     /**
      * 删除一条数据
-     * 
+     *
      * @param t 要删除的数据
      * @return 删除成功返回1，否则返回0
      */
@@ -31,7 +31,7 @@ public interface BaseMapper<T> {
 
     /**
      * 更新一条数据
-     * 
+     *
      * @param t 要更新的数据
      * @return 更新成功返回1，否则返回0
      */
@@ -39,7 +39,7 @@ public interface BaseMapper<T> {
 
     /**
      * 根据主键删除一条数据
-     * 
+     *
      * @param id 要删除数据的主键
      * @return 删除成功返回1，否则返回0
      */
@@ -47,7 +47,7 @@ public interface BaseMapper<T> {
 
      /**
      * 根据主键查询到唯一一条数据
-     * 
+     *
      * @param id 要查询数据的主键
      * @return 查询到的唯一一条实体数据
      */
@@ -55,7 +55,7 @@ public interface BaseMapper<T> {
 
     /**
      * 根据条件查询出某实体类数据的列表
-     * 
+     *
      * @param conditions 查询条件
      * @return 实体数据列表
      */

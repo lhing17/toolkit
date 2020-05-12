@@ -1,4 +1,4 @@
-package com.jweb.service;
+package cn.gsein.toolkit.web.service;
 
 /**
  * 基础Service类，各业务的Service类必须继承此接口

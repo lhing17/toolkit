@@ -1,3 +1,5 @@
+package cn.gsein.toolkit.algorithm;
+
 import java.util.Iterator;
 
 /**

@@ -1,4 +1,4 @@
-package com.jweb.service;
+package cn.gsein.toolkit.web.service;
 
 import java.util.List;
 

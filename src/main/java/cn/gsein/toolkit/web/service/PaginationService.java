@@ -1,7 +1,7 @@
-package com.jweb.service;
+package cn.gsein.toolkit.web.service;
 
+import cn.gsein.toolkit.web.model.PageRequestData;
 import com.github.pagehelper.PageInfo;
-import com.jweb.model.PageRequestData;
 
 import java.util.List;
 import java.util.Map;

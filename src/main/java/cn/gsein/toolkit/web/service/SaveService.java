@@ -1,4 +1,4 @@
-package com.jweb.service;
+package cn.gsein.toolkit.web.service;
 
 /**
  * @author G.Seinfeld
