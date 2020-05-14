@@ -230,7 +230,7 @@ public final class ExcelToPdfPdfBoxUtil {
             document.addPage(page);
             PDPageContentStream stream = new PDPageContentStream(document, page);
             InputStream inputStream = ExcelToPdfPdfBoxUtil.class.getClassLoader().getResourceAsStream("font/STXIHEI.TTF");
-            PDType0Font font = PDType0Font.load(document, inputStream, false);
+            PDType0Font font = PDType0Font.load(document, inputStream, true);
             stream.setFont(font, 14);
             stream.setStrokingColor(Color.BLACK);
 
