@@ -7,6 +7,9 @@
     <groupId>cn.gsein</groupId>
     <artifactId>toolkit</artifactId>
     <version>1.0</version>
+    <properties>
+        <poi.version>4.1.2</poi.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -21,7 +24,7 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.17</version>
+            <version>${poi.version}</version>
         </dependency>
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -31,7 +34,12 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>${poi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
