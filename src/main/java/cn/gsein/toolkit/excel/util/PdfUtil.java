@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * PDF工具类
+ * PDF工具类，基于pdfbox
  *
  * @author G. Seinfeld
  * @since 2020-05-14

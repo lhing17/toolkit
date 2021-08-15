@@ -1,7 +1,7 @@
 package cn.gsein.toolkit.excel.util;
 
-import org.apache.poi.POIXMLDocumentPart;
 import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ooxml.POIXMLDocumentPart;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.*;
 
