@@ -1,6 +1,11 @@
 (ns clj.snippets
   (:require [clojure.string :as str])
-  (:import (java.util Properties)))
+  (:import (java.util Properties)
+           (java.awt.image BufferedImage ImageObserver)
+           (javax.imageio ImageIO)
+           (java.io ByteArrayOutputStream ByteArrayInputStream)
+           (java.util.concurrent.locks ReentrantLock Condition)
+           (java.awt Image Color)))
 
 (defn underline->camel
   "下划线转驼峰"
@@ -164,6 +169,75 @@
   (convert coll) ;; => {"Foo" 1, "Bar" 2}
 )
 
+(defn set-interval [callback ms]
+  (future (while true (do (Thread/sleep ms) (callback)))))
+
+(def job (set-interval #(println "hello") 1000))
+;=>hello
+;hello
+;...
+
+(future-cancel job)
+;=>true
+
+;; 以下几个函数用于将java.awt.Image转为BufferedImage
+(defn- ^ImageObserver image-observer [^ReentrantLock lock ^Condition size? ^Condition data?]
+  (proxy [ImageObserver]
+         []
+    (imageUpdate [_ info-flags _ _ _ _]
+      (.lock lock)
+      (try
+        (cond (not= 0 (bit-and info-flags ImageObserver/ALLBITS))
+              (do
+                (.signal size?)
+                (.signal data?)
+                false)
+
+              (not= 0 (bit-and info-flags (bit-or ImageObserver/WIDTH ImageObserver/HEIGHT)))
+              (do
+                (.signal size?)
+                true)
+
+              :else
+              true)
+        (finally
+          (.unlock lock))))))
+
+(defn ^BufferedImage buffered-image [^Image image]
+  (if (instance? BufferedImage image)
+    image
+    (let [lock (ReentrantLock.)
+          size? (.newCondition lock)
+          data? (.newCondition lock)
+          o (image-observer lock size? data?)
+          width (atom (.getWidth image o))
+          height (atom (.getHeight image o))]
+      (.lock lock)
+      (try (while (or (< @width 0) (< @height 0))
+             (.awaitUninterruptibly size?)
+             (reset! width (.getWidth image o))
+             (reset! height (.getHeight image o)))
+           (let [bi (BufferedImage. @width @height BufferedImage/TYPE_INT_RGB)
+                 g (.createGraphics bi)]
+             (try
+               (doto g
+                 (.setBackground (Color. 0 true))
+                 (.clearRect 0 0 @width @height))
+               (while (not (.drawImage g image 0 0 o))
+                 (.awaitUninterruptibly data?))
+               (finally
+                 (.dispose g)))
+             bi)
+           (finally
+             (.unlock lock))))))
+
+(defn image->bytes [^BufferedImage buf-img]
+  (let [bos (ByteArrayOutputStream.)]
+    (ImageIO/write buf-img "png" bos)
+    (.toByteArray bos)))
+
+(defn ^BufferedImage bytes->image [^bytes bs]
+  (ImageIO/read (ByteArrayInputStream. bs)))
 
 (defn- -main [& args]
   ;(print (revrot "733049910872815764", 5))
